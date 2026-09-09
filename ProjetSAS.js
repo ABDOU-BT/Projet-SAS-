@@ -183,7 +183,7 @@ const trips = [
     }
 ];
 
-const tickets = []; 
+const tickets = [];
 
 function afficherTrajets() {
     console.clear();
@@ -197,9 +197,56 @@ function afficherTrajets() {
     }
 }
 
-let user; 
+function acheterTicket() {
+    console.clear();
+    console.log("\n=== ACHETER UN TICKET ===");
+    afficherTrajets();
+
+    let passengerName = prompt("Nom du passager : ");
+    let tripId = parseInt(prompt("Identifiant du trajet : "));
+
+    let selectedTrip = null;
+    for (let i = 0; i < trips.length; i++) {
+        if (trips[i].id === tripId) {
+            selectedTrip = trips[i];
+            break;
+        }
+    }
+
+    if (!selectedTrip) {
+        console.log("\nTrajet introuvable.");
+    } else if (selectedTrip.availableSeats <= 0) {
+        console.log("\nTrain complet.");
+    } else {
+        let seatNumber = 50 - selectedTrip.availableSeats + 1;
+        selectedTrip.availableSeats--;
+
+        let newTicket = {
+            id: tickets.length + 1,
+            passengerName: passengerName,
+            tripId: selectedTrip.id,
+            seatNumber: seatNumber,
+            price: selectedTrip.price
+        };
+
+        tickets.push(newTicket);
+
+        console.log("\nTicket acheté avec succès.");
+        console.log(`\nTicket #${newTicket.id}`);
+        console.log(`Passager : ${newTicket.passengerName}`);
+        console.log(`Trajet : ${selectedTrip.departure} → ${selectedTrip.destination}`);
+        console.log(`Place : ${newTicket.seatNumber}`);
+        console.log(`Prix : ${newTicket.price} DH`);
+    }
+
+    prompt("\nAppuyez sur Entrée pour continuer...");
+}
+
+let user;
+
 do {
     console.clear();
+
     console.log("\n=================================");
     console.log("        RAILWAY MANAGER");
     console.log("=================================");
@@ -212,12 +259,16 @@ do {
     console.log("7. Trier les trajets");
     console.log("0. Quitter");
 
-    user = prompt("Votre choix : "); 
+    user = prompt("Votre choix : ");
 
     switch (user) {
         case "1":
-            afficherTrajets(); 
-            prompt("\nAppuyez sur Entrée pour continuer..."); 
+            afficherTrajets();
+            prompt("\nAppuyez sur Entrée pour continuer...");
+            break;
+
+        case "2":
+            acheterTicket();
             break;
 
         case "0":
