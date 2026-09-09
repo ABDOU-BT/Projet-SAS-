@@ -182,7 +182,7 @@ const trips = [
         availableSeats: 50
     }
 ];
-const tickets = []; 
+//const tickets = []; 
 let user; 
 do {
 
