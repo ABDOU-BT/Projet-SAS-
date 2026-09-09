@@ -182,18 +182,27 @@ const trips = [
         availableSeats: 50
     }
 ];
-//const tickets = []; 
+
+const tickets = []; 
+
+function afficherTrajets() {
+    console.clear();
+    console.log("\n=== LISTE DES TRAJETS ===");
+    for (let i = 0; i < trips.length; i++) {
+        let t = trips[i];
+        console.log(`ID: ${t.id} | ${t.departure} —> ${t.destination}`);
+        console.log(`Départ : ${t.departureTime} | Arrivée : ${t.arrivalTime}`);
+        console.log(`Prix : ${t.price} DH | Places : ${t.availableSeats}`);
+        console.log("---------------------------------");
+    }
+}
+
 let user; 
 do {
-
     console.clear();
-
     console.log("\n=================================");
     console.log("        RAILWAY MANAGER");
     console.log("=================================");
-    console.log("                                 ");
-    console.log("                                 ");
-    console.log("                                 ");
     console.log("1. Afficher les trajets");
     console.log("2. Acheter un ticket");
     console.log("3. Afficher les tickets");
@@ -202,27 +211,15 @@ do {
     console.log("6. Filtrer les trajets");
     console.log("7. Trier les trajets");
     console.log("0. Quitter");
-    console.log("                                 ");
-    console.log("                                 ");
-
 
     user = prompt("Votre choix : "); 
 
     switch (user) {
         case "1":
-            console.clear();
-            console.log("\n=== LISTE DES TRAJETS ===");
-            for (let i = 0; i < trips.length; i++) {
-                let t = trips[i];
-                console.log(`ID: ${t.id} | ${t.departure} —> ${t.destination}`);
-                console.log(`Départ : ${t.departureTime} | Arrivée : ${t.arrivalTime}`);
-                console.log(`Prix : ${t.price} DH | Places : ${t.availableSeats}`);
-                console.log("---------------------------------");
-            }
-            
+            afficherTrajets(); 
             prompt("\nAppuyez sur Entrée pour continuer..."); 
             break;
-            
+
         case "0":
             console.log("Au revoir !");
             break;
@@ -230,7 +227,6 @@ do {
         default:
             console.log("\n !!! Choix invalide, réessayez.");
             prompt("Appuyez sur Entrée pour continuer...");
-           
     }
 
 } while (user !== "0");
