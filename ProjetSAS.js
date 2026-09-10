@@ -241,6 +241,35 @@ function acheterTicket() {
 
     prompt("\nAppuyez sur Entrée pour continuer...");
 }
+function afficherTickets() {
+    console.clear();
+    console.log("\n=== TICKETS ===");
+
+    if (tickets.length === 0) {
+        console.log("Aucun ticket enregistré.");
+    } else {
+        for (let i = 0; i < tickets.length; i++) {
+            let t = tickets[i];
+
+            let tripName = "";
+            for (let j = 0; j < trips.length; j++) {
+                if (trips[j].id === t.tripId) {
+                    tripName = `${trips[j].departure} → ${trips[j].destination}`;
+                    break;
+                }
+            }
+
+            console.log(`\nTicket #${t.id}`);
+            console.log(`Passager : ${t.passengerName}`);
+            console.log(`Trajet : ${tripName}`);
+            console.log(`Place : ${t.seatNumber}`);
+            console.log(`Prix : ${t.price} DH`);
+            console.log("---------------------------------");
+        }
+    }
+
+    prompt("\nAppuyez sur Entrée pour continuer...");
+}
 
 let user;
 
@@ -270,6 +299,11 @@ do {
         case "2":
             acheterTicket();
             break;
+
+        case "3":
+            afficherTickets();
+            break;
+
 
         case "0":
             console.log("Au revoir !");
