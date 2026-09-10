@@ -271,6 +271,42 @@ function afficherTickets() {
     prompt("\nAppuyez sur Entrée pour continuer...");
 }
 
+function annulerTicket() {
+    console.clear();
+    console.log("\n=== ANNULER UN TICKET ===");
+
+    let ticketId = parseInt(prompt("Identifiant du ticket : "));
+
+    let ticketIndex = -1;
+    for (let i = 0; i < tickets.length; i++) {
+        if (tickets[i].id === ticketId) {
+            ticketIndex = i;
+            break;
+        }
+    }
+
+
+    if (ticketIndex === -1) {
+        console.log("\nTicket introuvable.");
+    } else {
+        let canceledTicket = tickets[ticketIndex];
+
+        for (let i = 0; i < trips.length; i++) {
+            if (trips[i].id === canceledTicket.tripId) {
+                trips[i].availableSeats++;
+                break;
+            }
+        }
+
+
+        tickets.splice(ticketIndex, 1);
+
+        console.log("\nTicket annulé avec succès.");
+    }
+
+    prompt("\nAppuyez sur Entrée pour continuer...");
+}
+
 let user;
 
 do {
@@ -303,6 +339,12 @@ do {
         case "3":
             afficherTickets();
             break;
+
+
+        case "4":
+            annulerTicket();
+            break;
+
 
 
         case "0":
