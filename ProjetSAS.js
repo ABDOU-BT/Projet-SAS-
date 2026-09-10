@@ -307,6 +307,63 @@ function annulerTicket() {
     prompt("\nAppuyez sur Entrée pour continuer...");
 }
 
+function rechercherTicket() {
+    console.clear();
+    console.log("\n=== RECHERCHER UN TICKET ===");
+
+    let searchName = prompt("Nom du passager : ");
+    let found = false;
+
+    for (let i = 0; i < tickets.length; i++) {
+        let t = tickets[i];
+        if (t.passengerName.toLowerCase() === searchName.toLowerCase()) {
+            let tripName = "";
+            for (let j = 0; j < trips.length; j++) {
+                if (trips[j].id === t.tripId) {
+                    tripName = `${trips[j].departure} → ${trips[j].destination}`;
+                    break;
+                }
+            }
+
+            console.log(`\nTicket #${t.id}`);
+            console.log(`Passager : ${t.passengerName}`);
+            console.log(`Trajet : ${tripName}`);
+            console.log(`Place : ${t.seatNumber}`);
+            console.log(`Prix : ${t.price} DH`);
+            console.log("---------------------------------");
+            found = true;
+        }
+    }
+
+    if (!found) {
+        console.log("\nAucun ticket trouvé pour ce passager.");
+    }
+
+    prompt("\nAppuyez sur Entrée pour continuer...");
+}
+
+function filtrerTrajets() {
+    console.clear();
+    console.log("\n=== FILTRER LES TRAJETS ===");
+
+    let city = prompt("Ville de départ : ");
+    let found = false;
+
+    for (let i = 0; i < trips.length; i++) {
+        let t = trips[i];
+        if (t.departure.toLowerCase() === city.toLowerCase()) {
+            console.log(`${t.departure} → ${t.destination} : ${t.price} DH (Places : ${t.availableSeats})`);
+            found = true;
+        }
+    }
+
+    if (!found) {
+        console.log("\nAucun trajet trouvé depuis cette ville.");
+    }
+
+    prompt("\nAppuyez sur Entrée pour continuer...");
+}
+
 let user;
 
 do {
@@ -343,6 +400,17 @@ do {
 
         case "4":
             annulerTicket();
+            break;
+
+
+        case "5":
+            rechercherTicket();
+            break;
+
+
+
+        case "6":
+            filtrerTrajets();
             break;
 
 
