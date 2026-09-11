@@ -364,6 +364,30 @@ function filtrerTrajets() {
     prompt("\nAppuyez sur Entrée pour continuer...");
 }
 
+function trierTrajets() {
+    console.clear();
+    console.log("\n=== TRIER LES TRAJETS (Prix croissant) ===");
+
+    let sortedTrips = [...trips];
+
+    for (let i = 0; i < sortedTrips.length; i++) {
+        for (let j = 0; j < sortedTrips.length - 1; j++) {
+            if (sortedTrips[j].price > sortedTrips[j + 1].price) {
+                let temp = sortedTrips[j];
+                sortedTrips[j] = sortedTrips[j + 1];
+                sortedTrips[j + 1] = temp;
+            }
+        }
+    }
+
+    for (let i = 0; i < sortedTrips.length; i++) {
+        let t = sortedTrips[i];
+        console.log(`${t.departure} → ${t.destination} : ${t.price} DH`);
+    }
+
+    prompt("\nAppuyez sur Entrée pour continuer...");
+}
+
 let user;
 
 do {
@@ -411,6 +435,11 @@ do {
 
         case "6":
             filtrerTrajets();
+            break;
+
+
+        case "7":
+            trierTrajets();
             break;
 
 
